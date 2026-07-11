@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بدء إجراءات التحكيم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="platform.css">
+</head>
+<body>
+
+<!-- Reading Progress Bar -->
+<div id="reading-progress"><div id="reading-bar"></div></div>
+
+<!-- Top Controls -->
+<div id="top-controls">
+  <button id="btn-theme" title="الوضع الليلي"><i class="fas fa-moon"></i></button>
+  <button id="btn-fullscreen" title="ملء الشاشة"><i class="fas fa-expand"></i></button>
+  <button id="btn-search" title="البحث"><i class="fas fa-search"></i></button>
+  <div id="reading-time"><i class="fas fa-clock"></i> <span id="time-display">120 دقيقة</span></div>
+</div>
+
+<!-- Search Modal -->
+<div id="search-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>البحث في المحاضرة</h3>
+      <button class="modal-close" onclick="closeSearch()"><i class="fas fa-times"></i></button>
+    </div>
+    <input type="text" id="search-input" placeholder="ابحث عن موضوع..." oninput="performSearch(this.value)">
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<!-- Sidebar Navigation -->
+<nav id="sidebar">
+  <div id="sidebar-header">
+    <div id="sidebar-logo">
+      <i class="fas fa-gavel"></i>
+    </div>
+    <div id="sidebar-title">التحكيم</div>
+  </div>
+  <div id="sidebar-progress-wrap">
+    <div id="sidebar-progress-label">التقدم في المحاضرة</div>
+    <div id="sidebar-progress-bar"><div id="sidebar-progress-fill"></div></div>
+    <div id="sidebar-progress-pct">0%</div>
+  </div>
+  <ul id="nav-list">
+    <li class="nav-section-label">المحتوى</li>
+    <li class="nav-item active" data-slide="0">
+      <i class="fas fa-home"></i>
+      <span>الرئيسية</span>
+    </li>
+    <li class="nav-item" data-slide="1">
+      <i class="fas fa-bullseye"></i>
+      <span>أهداف المحاضرة</span>
+    </li>
+    <li class="nav-section-label">المحاور</li>
+    <li class="nav-item" data-slide="2">
+      <span class="nav-num">١</span>
+      <span>ماهية الخصومة التحكيمية</span>
+    </li>
+    <li class="nav-item" data-slide="9">
+      <span class="nav-num">٢</span>
+      <span>الإجراءات السابقة</span>
+    </li>
+    <li class="nav-item" data-slide="16">
+      <span class="nav-num">٣</span>
+      <span>بدء الإجراءات</span>
+    </li>
+    <li class="nav-item" data-slide="24">
+      <span class="nav-num">٤</span>
+      <span>طلب التحكيم والرد</span>
+    </li>
+    <li class="nav-item" data-slide="33">
+      <span class="nav-num">٥</span>
+      <span>أطراف الخصومة</span>
+    </li>
+    <li class="nav-item" data-slide="41">
+      <span class="nav-num">٦</span>
+      <span>الدفوع الأولية</span>
+    </li>
+    <li class="nav-item" data-slide="49">
+      <span class="nav-num">٧</span>
+      <span>الجلسة الإجرائية الأولى</span>
+    </li>
+    <li class="nav-section-label">التطبيق</li>
+    <li class="nav-item" data-slide="56">
+      <i class="fas fa-theater-masks"></i>
+      <span>محاكاة التحكيم</span>
+    </li>
+    <li class="nav-item" data-slide="57">
+      <i class="fas fa-folder-open"></i>
+      <span>ملف القضية</span>
+    </li>
+    <li class="nav-item" data-slide="58">
+      <i class="fas fa-file-contract"></i>
+      <span>العقد وشرط التحكيم</span>
+    </li>
+    <li class="nav-item" data-slide="59">
+      <i class="fas fa-paperclip"></i>
+      <span>المراسلات والمستندات</span>
+    </li>
+    <li class="nav-item" data-slide="60">
+      <i class="fas fa-pen-nib"></i>
+      <span>تمارين الصياغة</span>
+    </li>
+  </ul>
+</nav>
+
+<!-- Sidebar Toggle -->
+<button id="sidebar-toggle">
+  <i class="fas fa-bars"></i>
+</button>
+
+<!-- Main Slides Container -->
+<main id="slides-container">
+
+  <!-- ============ SLIDE 0: WELCOME ============ -->
+  <section class="slide active" data-slide="0" id="slide-0">
+    <div class="slide-bg-canvas" id="canvas-0"></div>
+    <div class="particles" id="particles-0"></div>
+    <div class="slide-content welcome-content">
+      <div class="welcome-badge animate-fadeup" style="--d:0.1s">
+        <i class="fas fa-balance-scale"></i>
+        <span>أكاديمية العدالة للدراسات القانونية والاقتصادية</span>
+      </div>
+      <h1 class="welcome-title animate-fadeup" style="--d:0.3s">
+        <span class="title-line">بدء إجراءات</span>
+        <span class="title-line accent-gradient">التحكيم</span>
+      </h1>
+      <div class="supervisor-card animate-fadeup" style="--d:0.7s">
+        <div class="supervisor-icon"><i class="fas fa-user-tie"></i></div>
+        <div class="supervisor-info">
+          <div class="supervisor-label">تحت إشراف</div>
+          <div class="supervisor-name">الدكتور أحمد محمد عبدالسلام</div>
+        </div>
+      </div>
+      <div class="welcome-stats animate-fadeup" style="--d:0.9s">
+        <div class="stat-item">
+          <div class="stat-num">٧</div>
+          <div class="stat-label">محاور</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">١٢٠+</div>
+          <div class="stat-label">دقيقة</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">٣٠+</div>
+          <div class="stat-label">تطبيق</div>
+        </div>
+      </div>
+      <button class="start-btn animate-fadeup" style="--d:1.1s" onclick="goToSlide(1)">
+        <span>ابدأ المحاضرة</span>
+        <i class="fas fa-arrow-left"></i>
+      </button>
+    </div>
+    <div class="scroll-hint animate-fadeup" style="--d:1.4s">
+      <i class="fas fa-chevron-down"></i>
+      <span>اسحب للتنقل</span>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 1: OBJECTIVES ============ -->
+  <section class="slide" data-slide="1" id="slide-1">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-bullseye"></i> الأهداف التعليمية</div>
+        <h2 class="slide-title">بنهاية هذه المحاضرة ستكون قادرًا على:</h2>
+      </div>
+      <div class="objectives-grid">
+        <div class="obj-card animate-card" style="--i:0">
+          <div class="obj-icon"><i class="fas fa-not-equal"></i></div>
+          <p>التمييز بين الخصومة التحكيمية والخصومة القضائية</p>
+        </div>
+        <div class="obj-card animate-card" style="--i:1">
+          <div class="obj-icon"><i class="fas fa-route"></i></div>
+          <p>فهم مراحل وإجراءات بدء الخصومة التحكيمية</p>
+        </div>
+        <div class="obj-card animate-card" style="--i:2">
+          <div class="obj-icon"><i class="fas fa-file-alt"></i></div>
+          <p>إعداد طلب التحكيم والرد عليه وفقًا للقواعد القانونية</p>
+        </div>
+        <div class="obj-card animate-card" style="--i:3">
+          <div class="obj-icon"><i class="fas fa-id-card"></i></div>
+          <p>التحقق من الصفة والأهلية والتمثيل القانوني للأطراف</p>
+        </div>
+        <div class="obj-card animate-card" style="--i:4">
+          <div class="obj-icon"><i class="fas fa-filter"></i></div>
+          <p>التمييز بين الدفوع المتعلقة بالاختصاص والقبول</p>
+        </div>
+        <div class="obj-card animate-card" style="--i:5">
+          <div class="obj-icon"><i class="fas fa-sitemap"></i></div>
+          <p>إدارة الجلسة الإجرائية الأولى وتنظيم الخصومة بكفاءة</p>
+        </div>
+      </div>
+      <div class="axes-preview">
+        <div class="axes-label">محاور المحاضرة السبعة</div>
+        <div class="axes-pills">
+          <span class="pill" onclick="goToSlide(2)">١ · ماهية الخصومة</span>
+          <span class="pill" onclick="goToSlide(9)">٢ · الإجراءات السابقة</span>
+          <span class="pill" onclick="goToSlide(16)">٣ · بدء الإجراءات</span>
+          <span class="pill" onclick="goToSlide(24)">٤ · طلب التحكيم</span>
+          <span class="pill" onclick="goToSlide(33)">٥ · أطراف الخصومة</span>
+          <span class="pill" onclick="goToSlide(41)">٦ · الدفوع الأولية</span>
+          <span class="pill" onclick="goToSlide(49)">٧ · الجلسة الأولى</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 2: AXIS 1 INTRO ============ -->
+  <section class="slide" data-slide="2" id="slide-2">
+    <div class="slide-content axis-intro-content">
+      <div class="axis-number-bg">١</div>
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-layer-group"></i> المحور الأول</div>
+        <h2 class="slide-title">ماهية الخصومة التحكيمية<br>وطبيعتها الإجرائية</h2>
+        <p class="slide-desc">الفرق بين شرط التحكيم والخصومة، والطبيعة المركبة للتحكيم، ومقارنته بالقضاء والوساطة</p>
+      </div>
+      <div class="axis-topics">
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> تعريف الخصومة التحكيمية</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> عناصرها الخمسة</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> الطبيعة المركبة</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> التحكيم vs الوساطة</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> التحكيم vs القضاء</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> دور قانون المرافعات</div>
+      </div>
+      <button class="continue-btn" onclick="goToSlide(3)">
+        <span>ابدأ المحور</span>
+        <i class="fas fa-arrow-left"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 3: CASE STUDY 1 ============ -->
+  <section class="slide" data-slide="3" id="slide-3">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-briefcase"></i> تطبيق عملي — دراسة حالة</div>
+        <h2 class="slide-title">متى بدأت الخصومة التحكيمية؟</h2>
+      </div>
+      <div class="case-study-box">
+        <div class="case-facts">
+          <h4><i class="fas fa-file-contract"></i> الوقائع</h4>
+          <p>أبرمت شركة مقاولات عقدًا مع مالك مشروع يتضمن:</p>
+          <blockquote>«يلتزم الطرفان بمحاولة تسوية النزاع وديًا، فإذا تعذر ذلك خلال ثلاثين يومًا، يحال النزاع إلى التحكيم.»</blockquote>
+        </div>
+        <div class="timeline-mini">
+          <div class="tm-item">
+            <div class="tm-icon blue"><i class="fas fa-envelope"></i></div>
+            <div class="tm-text"><strong>خطوة ١</strong> — خطاب مطالبة بالسداد</div>
+          </div>
+          <div class="tm-arrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+          <div class="tm-item">
+            <div class="tm-icon yellow"><i class="fas fa-handshake"></i></div>
+            <div class="tm-text"><strong>خطوة ٢</strong> — خطاب طلب التفاوض</div>
+          </div>
+          <div class="tm-arrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+          <div class="tm-item">
+            <div class="tm-icon green"><i class="fas fa-gavel"></i></div>
+            <div class="tm-text"><strong>خطوة ٣</strong> — تقديم طلب التحكيم</div>
+          </div>
+        </div>
+      </div>
+      <div class="question-box">
+        <div class="q-label"><i class="fas fa-question-circle"></i> السؤال</div>
+        <p>متى بدأت الخصومة التحكيمية بالضبط؟</p>
+        <div class="reveal-options">
+          <button class="opt-btn" onclick="revealAnswer('ans3','opt_a',this)">عند توقيع العقد وإدراج شرط التحكيم</button>
+          <button class="opt-btn" onclick="revealAnswer('ans3','opt_b',this)">عند نشوء النزاع بين الطرفين</button>
+          <button class="opt-btn" onclick="revealAnswer('ans3','opt_c',this)">عند تقديم طلب التحكيم وإخطار الطرف الآخر</button>
+          <button class="opt-btn" onclick="revealAnswer('ans3','opt_d',this)">عند إرسال خطاب المطالبة</button>
+        </div>
+        <div class="answer-reveal hidden" id="ans3" data-correct="opt_c">
+          <div class="answer-header correct"><i class="fas fa-check-circle"></i> الإجابة الصحيحة: الخيار الثالث</div>
+          <p>تبدأ الخصومة عندما ينتقل النزاع من مرحلة المطالبة أو التسوية الودية إلى مرحلة إجرائية منظمة، يطلب فيها أحد الأطراف التحكيم في مواجهة الطرف الآخر، بقصد الحصول على حكم تحكيمي ملزم.</p>
+          <div class="rule-box"><i class="fas fa-lightbulb"></i> <strong>القاعدة:</strong> شرط التحكيم ينشئ الطريق الإجرائي، أما طلب التحكيم فيُحرِّك الخصومة.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 4: DEFINITION + 5 ELEMENTS ============ -->
+  <section class="slide" data-slide="4" id="slide-4">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-book-open"></i> المحور الأول · التعريف</div>
+        <h2 class="slide-title">المقصود بالخصومة التحكيمية</h2>
+      </div>
+      <div class="definition-card">
+        <div class="def-icon"><i class="fas fa-balance-scale"></i></div>
+        <p class="def-text">الخصومة التحكيمية هي <strong>رابطة إجرائية</strong> تنشأ بين أطراف النزاع أمام هيئة التحكيم، استنادًا إلى اتفاق تحكيم، بقصد الفصل في نزاع محدد بحكم ملزم.</p>
+      </div>
+      <div class="elements-title">تقوم على خمسة عناصر رئيسية:</div>
+      <div class="five-elements">
+        <div class="elem-card" style="--i:0">
+          <div class="elem-num">١</div>
+          <div class="elem-icon"><i class="fas fa-file-signature"></i></div>
+          <div class="elem-text">اتفاق تحكيم صحيح</div>
+        </div>
+        <div class="elem-card" style="--i:1">
+          <div class="elem-num">٢</div>
+          <div class="elem-icon"><i class="fas fa-exclamation-triangle"></i></div>
+          <div class="elem-text">نزاع محدد قابل للتحكيم</div>
+        </div>
+        <div class="elem-card" style="--i:2">
+          <div class="elem-num">٣</div>
+          <div class="elem-icon"><i class="fas fa-users"></i></div>
+          <div class="elem-text">أطراف لهم صفة في النزاع</div>
+        </div>
+        <div class="elem-card" style="--i:3">
+          <div class="elem-num">٤</div>
+          <div class="elem-icon"><i class="fas fa-scroll"></i></div>
+          <div class="elem-text">طلب تحكيم يحدد محل الخصومة</div>
+        </div>
+        <div class="elem-card" style="--i:4">
+          <div class="elem-num">٥</div>
+          <div class="elem-icon"><i class="fas fa-shield-alt"></i></div>
+          <div class="elem-text">إجراءات تكفل المواجهة وحق الدفاع</div>
+        </div>
+      </div>
+      <div class="flip-question">
+        <i class="fas fa-brain"></i>
+        إذا كان طلب التحكيم ناقص البيانات، فهل تبدأ به الخصومة أم يلزم استكماله أولًا؟
+        <span class="think-badge">فكر!</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 5: COMPOUND NATURE ============ -->
+  <section class="slide" data-slide="5" id="slide-5">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-atom"></i> المحور الأول · الطبيعة</div>
+        <h2 class="slide-title">الطبيعة المركبة للخصومة التحكيمية</h2>
+        <p class="slide-desc">التحكيم ليس عقدًا محضًا، وليس قضاءً خالصًا، بل يجمع بين الأصل الاتفاقي والوظيفة القضائية.</p>
+      </div>
+      <div class="compound-diagram">
+        <div class="compound-node contract">
+          <div class="cn-icon"><i class="fas fa-handshake"></i></div>
+          <div class="cn-title">أصلها اتفاقي</div>
+          <div class="cn-desc">لا يقوم إلا بناءً على اتفاق الأطراف</div>
+        </div>
+        <div class="compound-center">
+          <div class="cc-gavel"><i class="fas fa-gavel"></i></div>
+          <div class="cc-label">التحكيم</div>
+        </div>
+        <div class="compound-node judicial">
+          <div class="cn-icon"><i class="fas fa-landmark"></i></div>
+          <div class="cn-title">وظيفتها قضائية</div>
+          <div class="cn-desc">تفصل بحكم ملزم في النزاع</div>
+        </div>
+        <div class="compound-node procedural">
+          <div class="cn-icon"><i class="fas fa-list-ol"></i></div>
+          <div class="cn-title">نظامها إجرائي خاص</div>
+          <div class="cn-desc">يخضع لقانون التحكيم واتفاق الأطراف</div>
+        </div>
+        <div class="compound-node guarantees">
+          <div class="cn-icon"><i class="fas fa-shield-alt"></i></div>
+          <div class="cn-title">ضماناتها قضائية</div>
+          <div class="cn-desc">حق الدفاع، المواجهة، المساواة</div>
+        </div>
+      </div>
+      <div class="golden-rule">
+        <i class="fas fa-star"></i>
+        <span><strong>التحكيم</strong> — اتفاق في مصدره، وقضاء في وظيفته، وإجراء خاص في نظامه.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 6: ARBITRATION VS MEDIATION ============ -->
+  <section class="slide" data-slide="6" id="slide-6">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-not-equal"></i> المحور الأول · مقارنة</div>
+        <h2 class="slide-title">التحكيم والوساطة: أوجه الاختلاف</h2>
+      </div>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>وجه المقارنة</th>
+              <th><i class="fas fa-handshake"></i> الوساطة</th>
+              <th><i class="fas fa-gavel"></i> التحكيم</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>دور المحكِّم/الوسيط</td>
+              <td class="td-med">يساعد الأطراف على التوصل لحل</td>
+              <td class="td-arb">ينظر في الطلبات والدفوع ويفصل فيها</td>
+            </tr>
+            <tr>
+              <td>سلطة الفصل</td>
+              <td class="td-med">لا يملك فرض حل</td>
+              <td class="td-arb">يصدر حكمًا ملزمًا للأطراف</td>
+            </tr>
+            <tr>
+              <td>النتيجة</td>
+              <td class="td-med">اتفاق رضائي أو فشل التسوية</td>
+              <td class="td-arb">حكم تحكيمي نهائي ملزم</td>
+            </tr>
+            <tr>
+              <td>الهدف</td>
+              <td class="td-med">إيجاد تسوية ترضي الطرفين</td>
+              <td class="td-arb">حسم النزاع وإنهاؤه</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="key-rule-box">
+        <i class="fas fa-key"></i>
+        <span><strong>القاعدة العملية:</strong> الوساطة تسعى إلى <em>اتفاق</em>، أما التحكيم فينتهي إلى <em>حكم</em>.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 7: ARBITRATION VS JUDICIARY ============ -->
+  <section class="slide" data-slide="7" id="slide-7">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-balance-scale-left"></i> المحور الأول · مقارنة</div>
+        <h2 class="slide-title">الخصومة التحكيمية vs القضائية</h2>
+        <p class="slide-desc">تتفقان في: وجود نزاع، طلبات، دفوع، مواجهة، حق دفاع، وقرار فاصل.</p>
+      </div>
+      <div class="diff-grid">
+        <div class="diff-item animate-card" style="--i:0">
+          <div class="diff-aspect">مصدر السلطة</div>
+          <div class="diff-two">
+            <div class="diff-q"><i class="fas fa-landmark"></i><span>القاضي: من الدولة</span></div>
+            <div class="diff-vs">VS</div>
+            <div class="diff-a"><i class="fas fa-file-signature"></i><span>المحكم: من اتفاق التحكيم</span></div>
+          </div>
+        </div>
+        <div class="diff-item animate-card" style="--i:1">
+          <div class="diff-aspect">القواعد الإجرائية</div>
+          <div class="diff-two">
+            <div class="diff-q"><i class="fas fa-book"></i><span>قانون المرافعات</span></div>
+            <div class="diff-vs">VS</div>
+            <div class="diff-a"><i class="fas fa-scroll"></i><span>قانون التحكيم واتفاق الأطراف</span></div>
+          </div>
+        </div>
+        <div class="diff-item animate-card" style="--i:2">
+          <div class="diff-aspect">درجة المرونة</div>
+          <div class="diff-two">
+            <div class="diff-q"><i class="fas fa-lock"></i><span>شكليات صارمة</span></div>
+            <div class="diff-vs">VS</div>
+            <div class="diff-a"><i class="fas fa-unlock"></i><span>مرونة إجرائية</span></div>
+          </div>
+        </div>
+        <div class="diff-item animate-card" style="--i:3">
+          <div class="diff-aspect">العلانية والسرية</div>
+          <div class="diff-two">
+            <div class="diff-q"><i class="fas fa-users"></i><span>علنية بالأصل</span></div>
+            <div class="diff-vs">VS</div>
+            <div class="diff-a"><i class="fas fa-user-secret"></i><span>سري بحسب الاتفاق</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="warning-box">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>لا يجوز طلب تطبيق جميع قواعد قانون المرافعات على التحكيم — فالتحكيم له نظام إجرائي خاص.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 8: ROLE OF PROCEDURAL LAW + BRAINSTORM ============ -->
+  <section class="slide" data-slide="8" id="slide-8">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-book-law"></i> المحور الأول · قانون المرافعات</div>
+        <h2 class="slide-title">متى نستدعي قانون المرافعات في التحكيم؟</h2>
+        <p class="slide-desc">قانون المرافعات هو <strong>مرجع عام للمبادئ</strong>، لا قانون مباشر التطبيق على كل تفاصيل التحكيم.</p>
+      </div>
+      <div class="when-law-grid">
+        <div class="wl-card"><i class="fas fa-user-tie"></i><span>تعيين المحكم أو رده أو عزله أمام المحكمة</span></div>
+        <div class="wl-card"><i class="fas fa-shield-halved"></i><span>التدابير الوقتية والتحفظية</span></div>
+        <div class="wl-card"><i class="fas fa-search"></i><span>المساعدة القضائية في الإثبات</span></div>
+        <div class="wl-card"><i class="fas fa-ban"></i><span>دعوى بطلان حكم التحكيم</span></div>
+        <div class="wl-card"><i class="fas fa-check-double"></i><span>الأمر بتنفيذ حكم التحكيم</span></div>
+        <div class="wl-card"><i class="fas fa-puzzle-piece"></i><span>وجود فراغ إجرائي لا يعالجه قانون التحكيم</span></div>
+      </div>
+      <div class="rule-banner">
+        <i class="fas fa-exclamation-circle"></i>
+        الضابط: لا تطبق قواعد المرافعات إذا تعارضت مع <strong>طبيعة التحكيم</strong> أو <strong>اتفاق الأطراف</strong> أو <strong>المرونة الإجرائية</strong>.
+      </div>
+      <div class="brainstorm-section">
+        <div class="bs-title"><i class="fas fa-brain"></i> أسئلة عصف ذهني — المحور الأول</div>
+        <div class="bs-questions">
+          <div class="bs-q" onclick="toggleBs(this)">
+            <span>هل شرط التحكيم ينشئ الخصومة أم يفتح الطريق إليها فقط؟</span>
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="bs-ans">يفتح الطريق فقط. الخصومة تبدأ بطلب التحكيم وإخطار الطرف الآخر.</div>
+
+          <div class="bs-q" onclick="toggleBs(this)">
+            <span>هل التحكيم أقرب إلى العقد أم إلى القضاء؟</span>
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="bs-ans">هو بطبيعته مزدوجة: مصدره اتفاقي، ووظيفته قضائية. لذا لا ينطبق عليه تصنيف واحد.</div>
+
+          <div class="bs-q" onclick="toggleBs(this)">
+            <span>هل المرونة في التحكيم تعني جواز إهدار حق الدفاع؟</span>
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="bs-ans">لا. المرونة تتعلق بالشكليات الإجرائية، أما ضمانات حق الدفاع والمواجهة والمساواة فهي ثابتة لا يجوز التنازل عنها.</div>
+
+          <div class="bs-q" onclick="toggleBs(this)">
+            <span>هل يجوز الاتفاق على إجراءات مختصرة تمس حق الدفاع؟</span>
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="bs-ans">لا يجوز. اتفاق الأطراف لا يسمو على المبادئ الأساسية للتقاضي العادل المتمثلة في حق الدفاع والمواجهة والمساواة.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 9: AXIS 2 INTRO ============ -->
+  <section class="slide" data-slide="9" id="slide-9">
+    <div class="slide-content axis-intro-content">
+      <div class="axis-number-bg">٢</div>
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-layer-group"></i> المحور الثاني</div>
+        <h2 class="slide-title">الإجراءات السابقة على اللجوء إلى التحكيم</h2>
+        <p class="slide-desc">الطبيعة القانونية لشروط التفاوض والوساطة، وأثر مخالفتها على اختصاص الهيئة</p>
+      </div>
+      <div class="axis-topics">
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> طبيعة الإجراءات السابقة</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> الاختصاص vs القبول</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> قضية C v D (هونغ كونغ)</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> قضية Emirates Trading</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> القضية السويسرية 2014</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> أثر غموض الشرط</div>
+      </div>
+      <button class="continue-btn" onclick="goToSlide(10)">
+        <span>ابدأ المحور</span>
+        <i class="fas fa-arrow-left"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 10: PRIOR PROCEDURES NATURE ============ -->
+  <section class="slide" data-slide="10" id="slide-10">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-hourglass-start"></i> المحور الثاني</div>
+        <h2 class="slide-title">الطبيعة القانونية للإجراءات السابقة</h2>
+      </div>
+      <div class="split-view">
+        <div class="split-card view-a">
+          <div class="split-head"><i class="fas fa-gavel"></i> الاتجاه الأول</div>
+          <div class="split-label label-red">شرط إجرائي سابق</div>
+          <p>إغفالها يؤدي إلى <strong>دفع بعدم القبول</strong>، وقد يُفضي إلى <strong>بطلان حكم التحكيم</strong> في بعض الأنظمة.</p>
+        </div>
+        <div class="split-divider"><i class="fas fa-arrows-left-right"></i></div>
+        <div class="split-card view-b">
+          <div class="split-head"><i class="fas fa-file-contract"></i> الاتجاه الثاني</div>
+          <div class="split-label label-blue">التزام تعاقدي</div>
+          <p>يوجب <strong>المسؤولية عند الإخلال</strong>، لكنه لا يمس اختصاص هيئة التحكيم ولا يسقط الحق في اللجوء إليها.</p>
+        </div>
+      </div>
+      <div class="key-distinction">
+        <div class="kd-title"><i class="fas fa-microscope"></i> التمييز الأساسي في الفقه المقارن</div>
+        <div class="kd-grid">
+          <div class="kd-item">
+            <div class="kd-term">الاختصاص<br><small>Jurisdiction</small></div>
+            <div class="kd-arrow"><i class="fas fa-arrow-left"></i></div>
+            <div class="kd-def">مدى <strong>سلطة الهيئة</strong> في نظر النزاع</div>
+          </div>
+          <div class="kd-item">
+            <div class="kd-term">المقبولية<br><small>Admissibility</small></div>
+            <div class="kd-arrow"><i class="fas fa-arrow-left"></i></div>
+            <div class="kd-def">مدى <strong>صلاحية الدعوى</strong> للقبول في ضوء الشروط السابقة</div>
+          </div>
+        </div>
+      </div>
+      <div class="settled-rule">
+        <i class="fas fa-check-circle"></i>
+        الاتجاه الغالب: الإخلال بالإجراءات السابقة يدخل في باب <strong>المقبولية</strong>، مما يُبقي للهيئة سلطة النظر والفصل.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 11: C v D ============ -->
+  <section class="slide" data-slide="11" id="slide-11">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-landmark"></i> تطبيق قضائي — هونغ كونغ</div>
+        <h2 class="slide-title">قضية C ضد D (2022–2023)</h2>
+      </div>
+      <div class="case-card international">
+        <div class="case-flag">🇭🇰 هونغ كونغ</div>
+        <div class="case-sections">
+          <div class="cs-section">
+            <div class="cs-label"><i class="fas fa-file-alt"></i> الوقائع</div>
+            <p>اشترط العقد: إخطار كتابي → إحالة للرئيس التنفيذي خلال 60 يومًا → ثم التحكيم. المدعية أرسلت الإخطار لكنها لجأت للتحكيم مباشرة دون إحالة للرئيس التنفيذي.</p>
+          </div>
+          <div class="cs-section">
+            <div class="cs-label"><i class="fas fa-exclamation-circle"></i> الدفع المثار</div>
+            <p>الشركة المدعى عليها: دفع بعدم اختصاص الهيئة لعدم استيفاء الإجراء التمهيدي.</p>
+          </div>
+          <div class="cs-section">
+            <div class="cs-label"><i class="fas fa-gavel"></i> القرار</div>
+            <p>هيئة التحكيم ومحكمة هونغ كونغ ومحكمة الاستئناف: <strong>رفض الدفع</strong> — الشرط التمهيدي يتعلق بقبول الدعوى، لا باختصاص الهيئة.</p>
+          </div>
+        </div>
+        <div class="case-principle">
+          <i class="fas fa-star"></i>
+          المبدأ المستقر: الإجراءات السابقة من قبيل <strong>الدفوع الشكلية</strong> التي تدخل في نطاق تقدير هيئة التحكيم.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 12: EMIRATES TRADING ============ -->
+  <section class="slide" data-slide="12" id="slide-12">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-landmark"></i> تطبيق قضائي — إنجلترا</div>
+        <h2 class="slide-title">Emirates Trading Agency v Prime Mineral Exports</h2>
+        <div class="case-ref">[2014] EWHC 2104 (Comm)</div>
+      </div>
+      <div class="case-card international">
+        <div class="case-flag">🇬🇧 إنجلترا وويلز</div>
+        <div class="case-sections">
+          <div class="cs-section">
+            <div class="cs-label"><i class="fas fa-file-alt"></i> الوقائع</div>
+            <p>شرط بالعقد: «السعي لتسوية النزاع بمفاوضات ودية خلال 4 أسابيع قبل التحكيم». أحد الطرفين بدأ التحكيم دون منح مهلة التفاوض.</p>
+          </div>
+          <div class="cs-section">
+            <div class="cs-label"><i class="fas fa-gavel"></i> الحكم</div>
+            <p>المحكمة التجارية البريطانية: شرط التفاوض <strong>التزام تعاقدي ملزم</strong>، وليس مجرد نية حسنة. مخالفته لا تنفي اختصاص الهيئة، لكن تجعل التحكيم <strong>سابقًا لأوانه</strong>.</p>
+          </div>
+        </div>
+        <div class="case-principle">
+          <i class="fas fa-key"></i>
+          عدم استيفاء شرط التفاوض = مسألة <strong>قبول (Admissibility)</strong>، لا مسألة اختصاص.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 13: SWISS CASE ============ -->
+  <section class="slide" data-slide="13" id="slide-13">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-landmark"></i> تطبيق قضائي — سويسرا</div>
+        <h2 class="slide-title">القضية السويسرية 4A_124/2014</h2>
+        <div class="case-ref">المحكمة الفيدرالية العليا — 7 يوليو 2014</div>
+      </div>
+      <div class="case-card international">
+        <div class="case-flag">🇨🇭 سويسرا · FIDIC</div>
+        <div class="case-sections">
+          <div class="cs-section">
+            <div class="cs-label"><i class="fas fa-file-alt"></i> الموضوع</div>
+            <p>عقد FIDIC 1999 يستلزم إحالة النزاع إلى لجنة DAB قبل التحكيم. المقاول لجأ للتحكيم مباشرة بسبب مماطلة الجهة المالكة في تشكيل اللجنة (تأخر 15 شهرًا بدلًا من 84 يومًا).</p>
+          </div>
+          <div class="cs-section">
+            <div class="cs-label"><i class="fas fa-gavel"></i> الحكم</div>
+            <p>المحكمة الفيدرالية: الشرط التمهيدي أُفرغ من مضمونه بسبب مماطلة الجهة المالكة. لا يحول الإخلال به دون اختصاص هيئة التحكيم.</p>
+          </div>
+        </div>
+        <div class="case-principle">
+          <i class="fas fa-balance-scale"></i>
+          المبدأ: إذا أُفرغ الشرط التمهيدي من مضمونه بفعل أحد الأطراف، بقيت ولاية هيئة التحكيم <strong>قائمة</strong>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 14: DUBAI CASE ============ -->
+  <section class="slide" data-slide="14" id="slide-14">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-landmark"></i> تطبيق قضائي — الإمارات</div>
+        <h2 class="slide-title">حكم دائرة التمييز دبي 1308/2020</h2>
+        <div class="case-ref">صادر 3 مارس 2021</div>
+      </div>
+      <div class="case-card international">
+        <div class="case-flag">🇦🇪 الإمارات العربية المتحدة</div>
+        <div class="case-sections">
+          <div class="cs-section">
+            <div class="cs-label"><i class="fas fa-file-alt"></i> الوقائع</div>
+            <p>عقد بناء فيلا يشير إلى «أحكام FIDIC (الكتاب الأحمر) 1987» دون نص صريح على بند التحكيم. محكمة الاستئناف: الإشارة لـ FIDIC تتضمن ضمنًا بند التحكيم.</p>
+          </div>
+          <div class="cs-section">
+            <div class="cs-label"><i class="fas fa-gavel"></i> قرار دائرة التمييز</div>
+            <p><strong>نقض</strong> — المادة 7 من قانون التحكيم الاتحادي رقم 6 لسنة 2018 تشترط: الاتفاق مكتوب، أو إشارة <strong>صريحة</strong> لبند التحكيم. الإحالة العامة لـ FIDIC <strong>غير كافية</strong> لإثبات وجود اتفاق تحكيم.</p>
+          </div>
+        </div>
+        <div class="case-principle">
+          <i class="fas fa-exclamation-triangle"></i>
+          الدرس: الإشارة الضمنية أو العامة لا تقيم اتفاق تحكيم — يلزم <strong>النص الصريح</strong>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 15: AMBIGUOUS CLAUSE ============ -->
+  <section class="slide" data-slide="15" id="slide-15">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-question"></i> المحور الثاني · أثر الغموض</div>
+        <h2 class="slide-title">أثر غموض الشرط أو سكوت العقد</h2>
+      </div>
+      <div class="scenario-flow">
+        <div class="sf-box sf-absent">
+          <div class="sf-title"><i class="fas fa-times-circle"></i> غياب الشرط</div>
+          <p>لا يجوز إلزام الأطراف بالإجراءات السابقة، ويجوز اللجوء للتحكيم مباشرة.</p>
+        </div>
+        <div class="sf-arrow"><i class="fas fa-arrow-down"></i></div>
+        <div class="sf-box sf-vague">
+          <div class="sf-title"><i class="fas fa-question-circle"></i> الشرط الغامض أو المطاط</div>
+          <p>تُفسِّره الهيئة تفسيرًا غير مانع وتُعامله كبند توجيهي لا ينتج دفعًا بعدم القبول.</p>
+        </div>
+        <div class="sf-arrow"><i class="fas fa-arrow-down"></i></div>
+        <div class="sf-box sf-clear">
+          <div class="sf-title"><i class="fas fa-check-circle"></i> الشرط الواضح الملزم</div>
+          <p>مخالفته تؤثر في قبول الطلب (لا الاختصاص) ما لم ينص على خلاف ذلك.</p>
+        </div>
+      </div>
+      <div class="drafting-tips">
+        <div class="dt-title"><i class="fas fa-pen-nib"></i> صياغة الشروط السابقة: المعايير الثلاثة</div>
+        <div class="dt-items">
+          <div class="dt-item">
+            <div class="dt-num">١</div>
+            <div class="dt-text"><strong>الوضوح في التحديد</strong> — ما هو الإجراء؟ من الجهة؟ خلال كم يوم؟</div>
+          </div>
+          <div class="dt-item">
+            <div class="dt-num">٢</div>
+            <div class="dt-text"><strong>الربط بالتحكيم</strong> — مثال: «لا يجوز اللجوء إلى التحكيم إلا بعد مضي 60 يومًا»</div>
+          </div>
+          <div class="dt-item">
+            <div class="dt-num">٣</div>
+            <div class="dt-text"><strong>تحديد الجزاء</strong> — مثل: التعليق، أو رفض النظر، أو تحمل المسؤولية</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 16: AXIS 3 INTRO ============ -->
+  <section class="slide" data-slide="16" id="slide-16">
+    <div class="slide-content axis-intro-content">
+      <div class="axis-number-bg">٣</div>
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-layer-group"></i> المحور الثالث</div>
+        <h2 class="slide-title">بدء إجراءات التحكيم<br>وتحديد تاريخ انعقاد الخصومة</h2>
+        <p class="slide-desc">المراحل الثلاث من الاتفاق إلى الخصومة، والآثار القانونية لتاريخ البدء</p>
+      </div>
+      <div class="axis-topics">
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> المقصود ببدء الإجراءات</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> تاريخ بدء الخصومة</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> البيانات الجوهرية</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> الإخطار بالطلب</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> الآثار القانونية</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> الإشكالات العملية</div>
+      </div>
+      <button class="continue-btn" onclick="goToSlide(17)">
+        <span>ابدأ المحور</span>
+        <i class="fas fa-arrow-left"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 17: THREE STAGES ============ -->
+  <section class="slide" data-slide="17" id="slide-17">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-route"></i> المحور الثالث</div>
+        <h2 class="slide-title">المراحل الثلاث: من الاتفاق إلى الخصومة</h2>
+      </div>
+      <div class="stages-timeline">
+        <div class="stage-block" style="--i:0">
+          <div class="stage-num">١</div>
+          <div class="stage-content">
+            <div class="stage-icon blue"><i class="fas fa-file-signature"></i></div>
+            <div class="stage-title">اتفاق التحكيم</div>
+            <div class="stage-desc">المصدر القانوني لاختصاص هيئة التحكيم</div>
+            <div class="stage-note">❌ لا ينشئ الخصومة بذاته</div>
+          </div>
+        </div>
+        <div class="stage-arrow"><i class="fas fa-arrow-down"></i></div>
+        <div class="stage-block" style="--i:1">
+          <div class="stage-num">٢</div>
+          <div class="stage-content">
+            <div class="stage-icon yellow"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="stage-title">نشوء النزاع</div>
+            <div class="stage-desc">الواقعة التي تجعل اتفاق التحكيم قابلًا للتنفيذ</div>
+            <div class="stage-note">❌ لا يفتتح الخصومة</div>
+          </div>
+        </div>
+        <div class="stage-arrow"><i class="fas fa-arrow-down"></i></div>
+        <div class="stage-block" style="--i:2">
+          <div class="stage-num">٣</div>
+          <div class="stage-content">
+            <div class="stage-icon green"><i class="fas fa-play-circle"></i></div>
+            <div class="stage-title">بدء إجراءات التحكيم</div>
+            <div class="stage-desc">أول عمل إجرائي بقصد عرض النزاع على التحكيم</div>
+            <div class="stage-note">✅ تنعقد به الخصومة وتترتب آثارها</div>
+          </div>
+        </div>
+      </div>
+      <div class="issue-box">
+        <i class="fas fa-question-circle"></i>
+        <span><strong>إشكالية فقهية:</strong> هل الخصومة تنشأ بإرادة المدعي وحده، أم لا تنعقد إلا بعد وصول طلب التحكيم إلى المدعى عليه؟</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 18: DATE OF COMMENCEMENT ============ -->
+  <section class="slide" data-slide="18" id="slide-18">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-calendar-check"></i> المحور الثالث · تاريخ البدء</div>
+        <h2 class="slide-title">تحديد تاريخ بدء الخصومة التحكيمية</h2>
+        <p class="slide-desc">من أهم المسائل الإجرائية — يترتب عليه: التقادم، المواعيد، القانون الواجب، اختصاص الهيئة.</p>
+      </div>
+      <div class="date-options">
+        <div class="do-card do-rejected">
+          <div class="do-icon"><i class="fas fa-paper-plane"></i></div>
+          <div class="do-title">تاريخ الإرسال</div>
+          <div class="do-badge rejected-badge">الأقلية</div>
+          <p>بعض التشريعات تعتد به</p>
+        </div>
+        <div class="do-card do-accepted">
+          <div class="do-icon"><i class="fas fa-inbox"></i></div>
+          <div class="do-title">تاريخ التسلُّم</div>
+          <div class="do-badge accepted-badge">الغالب</div>
+          <p>الاتجاه الغالب بالتشريعات الحديثة ومنها القانون المصري المستلهم من الأونسيترال</p>
+        </div>
+        <div class="do-card do-rejected">
+          <div class="do-icon"><i class="fas fa-eye"></i></div>
+          <div class="do-title">العلم الفعلي</div>
+          <div class="do-badge rejected-badge">استثنائي</div>
+          <p>نادرًا ما يعتد به</p>
+        </div>
+      </div>
+      <div class="inst-diff">
+        <div class="id-title"><i class="fas fa-building"></i> التحكيم المؤسسي: تباين بين المؤسسات</div>
+        <div class="id-grid">
+          <div class="id-item">
+            <div class="id-name">بعض المؤسسات</div>
+            <div class="id-date">تاريخ استلام الطلب من المؤسسة</div>
+          </div>
+          <div class="id-vs">VS</div>
+          <div class="id-item">
+            <div class="id-name">مؤسسات أخرى</div>
+            <div class="id-date">تاريخ إخطار المدعى عليه</div>
+          </div>
+        </div>
+      </div>
+      <div class="practical-rule">
+        <i class="fas fa-lightbulb"></i>
+        <strong>قاعدة عملية:</strong> العبرة ليست بتاريخ تحرير الطلب، وإنما بتاريخ إنتاجه <strong>أثره القانوني</strong> وفقًا للقانون أو الاتفاق أو القواعد المؤسسية.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 19: NOTIFICATION ============ -->
+  <section class="slide" data-slide="19" id="slide-19">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-bell"></i> المحور الثالث · الإخطار</div>
+        <h2 class="slide-title">الإخطار بطلب التحكيم</h2>
+        <p class="slide-desc">الوسيلة التي يتحقق بها مبدأ المواجهة — لا يجوز بدء خصومة ضد شخص لم يتح له العلم بها.</p>
+      </div>
+      <div class="notification-methods">
+        <div class="nm-item"><i class="fas fa-envelope"></i><span>البريد المسجل</span></div>
+        <div class="nm-item"><i class="fas fa-person-walking-arrow-right"></i><span>التسليم المباشر</span></div>
+        <div class="nm-item"><i class="fas fa-truck-fast"></i><span>شركات البريد السريع</span></div>
+        <div class="nm-item"><i class="fas fa-at"></i><span>البريد الإلكتروني</span></div>
+        <div class="nm-item"><i class="fas fa-mobile-screen"></i><span>الوسائل الإلكترونية (بالاتفاق)</span></div>
+      </div>
+      <div class="digital-issues">
+        <div class="di-title"><i class="fas fa-wifi"></i> إشكالات البيئة الرقمية</div>
+        <div class="di-questions">
+          <div class="di-q"><i class="fas fa-question"></i> هل يكفي وصول البريد الإلكتروني إلى الخادم؟</div>
+          <div class="di-q"><i class="fas fa-question"></i> أم يشترط فتح الرسالة؟</div>
+          <div class="di-q"><i class="fas fa-question"></i> ما أثر تعطل البريد الإلكتروني أو امتلاء صندوق الرسائل؟</div>
+          <div class="di-q"><i class="fas fa-question"></i> ماذا لو وصلت الرسالة لمجلد Spam؟</div>
+        </div>
+      </div>
+      <div class="notification-rule">
+        <i class="fas fa-gavel"></i>
+        <strong>الأصل:</strong> العبرة بوصول الإخطار إلى <strong>الوسيلة التي يملك المُرسَل إليه السيطرة عليها</strong>، لا بمجرد اطلاعه الفعلي عليه، ما لم يُثبت وجود مانع مشروع.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 20: LEGAL EFFECTS ============ -->
+  <section class="slide" data-slide="20" id="slide-20">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-bolt"></i> المحور الثالث · الآثار</div>
+        <h2 class="slide-title">الآثار القانونية لبدء إجراءات التحكيم</h2>
+      </div>
+      <div class="effects-grid">
+        <div class="effect-card" style="--i:0">
+          <div class="effect-num">١</div>
+          <div class="effect-icon"><i class="fas fa-check-circle"></i></div>
+          <div class="effect-title">انعقاد الخصومة</div>
+          <p>تصبح الهيئة مختصة في الحدود التي رسمها الطلب</p>
+        </div>
+        <div class="effect-card" style="--i:1">
+          <div class="effect-num">٢</div>
+          <div class="effect-icon"><i class="fas fa-crosshairs"></i></div>
+          <div class="effect-title">تحديد نطاق النزاع</div>
+          <p>تتحدد ولاية الهيئة بالطلبات والوقائع مع مراعاة التعديلات</p>
+        </div>
+        <div class="effect-card" style="--i:2">
+          <div class="effect-num">٣</div>
+          <div class="effect-icon"><i class="fas fa-hourglass-end"></i></div>
+          <div class="effect-title">أثره في التقادم</div>
+          <p>قد يترتب وقف أو انقطاع التقادم بحسب القانون الواجب</p>
+        </div>
+        <div class="effect-card" style="--i:3">
+          <div class="effect-num">٤</div>
+          <div class="effect-icon"><i class="fas fa-scale-balanced"></i></div>
+          <div class="effect-title">تحديد القانون الإجرائي</div>
+          <p>قد يكون التاريخ معيارًا لتحديد القواعد الواجبة التطبيق</p>
+        </div>
+        <div class="effect-card" style="--i:4">
+          <div class="effect-num">٥</div>
+          <div class="effect-icon"><i class="fas fa-clock"></i></div>
+          <div class="effect-title">تحديد الاختصاص الزمني</div>
+          <p>تبدأ ولاية الهيئة بالنسبة للنزاع من تاريخ انعقاد الخصومة</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 21: PRACTICAL CASE - EMAIL ============ -->
+  <section class="slide" data-slide="21" id="slide-21">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-laptop"></i> تطبيق عملي — المحور الثالث</div>
+        <h2 class="slide-title">ورشة عمل: الإخطار الإلكتروني والتقادم</h2>
+      </div>
+      <div class="workshop-box">
+        <div class="wb-facts">
+          <h4><i class="fas fa-calendar-alt"></i> الوقائع</h4>
+          <div class="timeline-dates">
+            <div class="td-item">
+              <div class="td-date">1 مارس</div>
+              <div class="td-event"><i class="fas fa-paper-plane blue-icon"></i> المدعي أرسل طلب التحكيم بالبريد الإلكتروني</div>
+            </div>
+            <div class="td-item">
+              <div class="td-date">2 مارس</div>
+              <div class="td-event"><i class="fas fa-server yellow-icon"></i> وصول الرسالة إلى خادم البريد الخاص بالمدعى عليه</div>
+            </div>
+            <div class="td-item highlight-date">
+              <div class="td-date red-date">3 مارس</div>
+              <div class="td-event"><i class="fas fa-hourglass-end red-icon"></i> انتهاء ميعاد التقادم!</div>
+            </div>
+            <div class="td-item">
+              <div class="td-date">5 مارس</div>
+              <div class="td-event"><i class="fas fa-eye green-icon"></i> المدعى عليه فتح الرسالة وعلم بها</div>
+            </div>
+          </div>
+        </div>
+        <div class="wb-questions">
+          <h4><i class="fas fa-question-circle"></i> للمناقشة</h4>
+          <div class="discuss-q" onclick="toggleDiscuss(this)">
+            <span>متى تعتبر إجراءات التحكيم قد بدأت؟</span>
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="discuss-a">العبرة بتاريخ التسلُّم، وهو 2 مارس (تاريخ وصول الرسالة للخادم)، على الراجح من الفقه.</div>
+
+          <div class="discuss-q" onclick="toggleDiscuss(this)">
+            <span>هل ينقطع التقادم أم يقف؟ وما الأثر في هذه الحالة؟</span>
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="discuss-a">يترتب على بدء التحكيم في 2 مارس وقف التقادم أو انقطاعه قبل انتهائه في 3 مارس، وهو ما يُحقق حماية للمدعي. غير أن الأثر يتوقف على القانون الواجب التطبيق.</div>
+
+          <div class="discuss-q" onclick="toggleDiscuss(this)">
+            <span>هل يختلف الحكم إذا كان البريد الإلكتروني غير متفق عليه كوسيلة إخطار؟</span>
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="discuss-a">نعم — إذا لم يُتفق على قبول البريد الإلكتروني وسيلةً للإخطار، قد لا يُعتد بتاريخ الوصول، ويبدأ التحكيم من تاريخ الإخطار الصحيح.</div>
+
+          <div class="discuss-q" onclick="toggleDiscuss(this)">
+            <span>ماذا لو أثبت المدعى عليه أن الرسالة وصلت إلى مجلد Spam؟</span>
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="discuss-a">الأصل أن العبرة بالوصول إلى صندوق البريد الذي يملك عليه المُرسَل إليه السيطرة. إرسال الرسالة لـ Spam لا يعفيه تلقائيًا، إلا إذا أثبت مانعًا مشروعًا.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 22: PRACTICAL PROBLEMS ============ -->
+  <section class="slide" data-slide="22" id="slide-22">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-tools"></i> المحور الثالث · الإشكالات</div>
+        <h2 class="slide-title">الإشكالات العملية في مرحلة البدء</h2>
+      </div>
+      <div class="problems-grid">
+        <div class="prob-card" style="--i:0">
+          <div class="prob-icon"><i class="fas fa-hand-paper"></i></div>
+          <div class="prob-title">الامتناع عمدًا</div>
+          <p>امتناع المدعى عليه عن استلام الإخطار عمدًا</p>
+          <div class="prob-solution"><i class="fas fa-check"></i> لا يُجدي — العبرة بالوصول للوسيلة المسيطر عليها</div>
+        </div>
+        <div class="prob-card" style="--i:1">
+          <div class="prob-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="prob-title">العنوان القديم</div>
+          <p>إرسال الطلب إلى عنوان قديم أو غير صحيح</p>
+          <div class="prob-solution"><i class="fas fa-check"></i> يُؤثر في صحة الإخطار ويستدعي التصحيح</div>
+        </div>
+        <div class="prob-card" style="--i:2">
+          <div class="prob-icon"><i class="fas fa-skull-crossbones"></i></div>
+          <div class="prob-title">وفاة أحد الأطراف</div>
+          <p>قبل تمام الإخطار</p>
+          <div class="prob-solution"><i class="fas fa-check"></i> يستدعي اختصام الورثة من جديد</div>
+        </div>
+        <div class="prob-card" style="--i:3">
+          <div class="prob-icon"><i class="fas fa-edit"></i></div>
+          <div class="prob-title">تعديل الطلبات</div>
+          <p>بعد بدء الخصومة</p>
+          <div class="prob-solution"><i class="fas fa-check"></i> جائز بضوابط — لا يمس حق الدفاع</div>
+        </div>
+        <div class="prob-card" style="--i:4">
+          <div class="prob-icon"><i class="fas fa-users"></i></div>
+          <div class="prob-title">تعدد المدعى عليهم</div>
+          <p>اختلاف تاريخ إعلان كل منهم</p>
+          <div class="prob-solution"><i class="fas fa-check"></i> تحسب المواعيد من آخر إخطار لضمان المواجهة</div>
+        </div>
+        <div class="prob-card" style="--i:5">
+          <div class="prob-icon"><i class="fas fa-wifi"></i></div>
+          <div class="prob-title">التحكيم الإلكتروني</div>
+          <p>بدء التحكيم إلكترونيًا دون اتفاق صريح</p>
+          <div class="prob-solution"><i class="fas fa-check"></i> يتطلب قانونًا أو اتفاقًا صريحًا يُجيز ذلك</div>
+        </div>
+      </div>
+      <div class="guiding-principle">
+        <i class="fas fa-compass"></i>
+        <strong>المبدأ الحاكم:</strong> تحقيق المواجهة الفعلية دون التضحية بفعالية الإجراءات أو السماح بالتعسف في استعمال الحقوق الإجرائية.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 23: AXIS 3 QUIZ ============ -->
+  <section class="slide" data-slide="23" id="slide-23">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-check-square"></i> اختبار — المحور الثالث</div>
+        <h2 class="slide-title">اختبر فهمك</h2>
+      </div>
+      <div class="quiz-container" id="quiz-23">
+        <div class="quiz-question active-q" data-q="0">
+          <div class="q-text">الاتجاه الغالب في التشريعات الحديثة يعتد بتاريخ بدء الخصومة من:</div>
+          <div class="q-options">
+            <div class="q-opt" data-correct="false" onclick="selectQuizOpt(this,23,0)">تاريخ تحرير طلب التحكيم</div>
+            <div class="q-opt" data-correct="true" onclick="selectQuizOpt(this,23,0)">تاريخ تسلُّم المدعى عليه الطلب</div>
+            <div class="q-opt" data-correct="false" onclick="selectQuizOpt(this,23,0)">تاريخ العلم الفعلي للمدعى عليه</div>
+            <div class="q-opt" data-correct="false" onclick="selectQuizOpt(this,23,0)">تاريخ تشكيل هيئة التحكيم</div>
+          </div>
+          <div class="q-feedback hidden"></div>
+        </div>
+        <div class="quiz-question" data-q="1">
+          <div class="q-text">صح أم خطأ: يكفي وجود اتفاق التحكيم ونشوء النزاع لانعقاد الخصومة التحكيمية.</div>
+          <div class="q-options">
+            <div class="q-opt" data-correct="false" onclick="selectQuizOpt(this,23,1)">صح</div>
+            <div class="q-opt" data-correct="true" onclick="selectQuizOpt(this,23,1)">خطأ</div>
+          </div>
+          <div class="q-feedback hidden"></div>
+        </div>
+        <div class="quiz-question" data-q="2">
+          <div class="q-text">ما الأثر القانوني الذي يترتب على بدء إجراءات التحكيم بالنسبة لمسألة التقادم؟</div>
+          <div class="q-options">
+            <div class="q-opt" data-correct="false" onclick="selectQuizOpt(this,23,2)">لا أثر على التقادم بأي حال</div>
+            <div class="q-opt" data-correct="false" onclick="selectQuizOpt(this,23,2)">يسري التقادم من جديد دائمًا</div>
+            <div class="q-opt" data-correct="true" onclick="selectQuizOpt(this,23,2)">قد يترتب وقف أو انقطاع التقادم بحسب القانون الواجب</div>
+            <div class="q-opt" data-correct="false" onclick="selectQuizOpt(this,23,2)">يتحدد ذلك فقط باتفاق الأطراف</div>
+          </div>
+          <div class="q-feedback hidden"></div>
+        </div>
+        <div class="quiz-nav">
+          <button class="quiz-prev" onclick="prevQuestion(23)" disabled><i class="fas fa-arrow-right"></i> السابق</button>
+          <div class="quiz-dots" id="dots-23">
+            <span class="dot active" onclick="jumpQuestion(23,0)"></span>
+            <span class="dot" onclick="jumpQuestion(23,1)"></span>
+            <span class="dot" onclick="jumpQuestion(23,2)"></span>
+          </div>
+          <button class="quiz-next" onclick="nextQuestion(23)">التالي <i class="fas fa-arrow-left"></i></button>
+        </div>
+        <div class="quiz-score hidden" id="score-23"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 24: AXIS 4 INTRO ============ -->
+  <section class="slide" data-slide="24" id="slide-24">
+    <div class="slide-content axis-intro-content">
+      <div class="axis-number-bg">٤</div>
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-layer-group"></i> المحور الرابع</div>
+        <h2 class="slide-title">طلب التحكيم والرد عليه</h2>
+        <p class="slide-desc">طلب التحكيم: ماهيته، بياناته، آثاره، تعديله — والرد: وظيفته وأثر السكوت</p>
+      </div>
+      <div class="axis-topics">
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> ماهية طلب التحكيم</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> مقارنته بصحيفة الدعوى</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> البيانات الجوهرية</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> آثار الطلب</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> التعديل</div>
+        <div class="topic-chip"><i class="fas fa-dot-circle"></i> الرد وأثر عدمه</div>
+      </div>
+      <button class="continue-btn" onclick="goToSlide(25)">
+        <span>ابدأ المحور</span>
+        <i class="fas fa-arrow-left"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 25: REQUEST DEFINITION ============ -->
+  <section class="slide" data-slide="25" id="slide-25">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-scroll"></i> المحور الرابع</div>
+        <h2 class="slide-title">ماهية طلب التحكيم ووظيفته الإجرائية</h2>
+      </div>
+      <div class="two-col-layout">
+        <div class="tc-col">
+          <div class="tc-card">
+            <div class="tc-icon"><i class="fas fa-door-open"></i></div>
+            <div class="tc-title">ما هو؟</div>
+            <p>أول عمل إجرائي يباشره المدعي لتحريك الخصومة — ينقل النزاع من المرحلة الموضوعية إلى الإجرائية.</p>
+          </div>
+          <div class="tc-card">
+            <div class="tc-icon"><i class="fas fa-bullhorn"></i></div>
+            <div class="tc-title">ليس مجرد إخطار</div>
+            <p>بل هو <strong>إعلان عن إرادة</strong> المحتكم في مباشرة حقه في التحكيم وتحديد نطاق الخصومة.</p>
+          </div>
+        </div>
+        <div class="tc-col">
+          <div class="functions-card">
+            <div class="fc-title"><i class="fas fa-list-check"></i> وظائفه الأساسية</div>
+            <div class="fc-items">
+              <div class="fc-item"><i class="fas fa-check"></i> افتتاح الخصومة التحكيمية</div>
+              <div class="fc-item"><i class="fas fa-check"></i> تحديد أطراف النزاع</div>
+              <div class="fc-item"><i class="fas fa-check"></i> تحديد موضوع النزاع</div>
+              <div class="fc-item"><i class="fas fa-check"></i> تحديد الطلبات المطلوب الفصل فيها</div>
+              <div class="fc-item"><i class="fas fa-check"></i> تمكين المدعى عليه من إعداد دفاعه</div>
+              <div class="fc-item"><i class="fas fa-check"></i> تمكين الهيئة من تحديد نطاق ولايتها</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="query-box">
+        <i class="fas fa-question-circle"></i>
+        هل يجوز لهيئة التحكيم الفصل في طلب لم يرد في طلب التحكيم ولم يُعدَّل أثناء الخصومة؟
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 26: REQUEST VS LAWSUIT ============ -->
+  <section class="slide" data-slide="26" id="slide-26">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-not-equal"></i> المحور الرابع · مقارنة</div>
+        <h2 class="slide-title">طلب التحكيم vs صحيفة الدعوى</h2>
+      </div>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>وجه المقارنة</th>
+              <th><i class="fas fa-scroll"></i> طلب التحكيم</th>
+              <th><i class="fas fa-file-alt"></i> صحيفة الدعوى</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>يُقدَّم إلى</td>
+              <td class="td-arb">هيئة التحكيم أو المؤسسة التحكيمية</td>
+              <td class="td-med">المحكمة المختصة</td>
+            </tr>
+            <tr>
+              <td>يستند إلى</td>
+              <td class="td-arb">اتفاق التحكيم</td>
+              <td class="td-med">الولاية العامة للقضاء</td>
+            </tr>
+            <tr>
+              <td>يخضع لـ</td>
+              <td class="td-arb">قانون التحكيم والقواعد المتفق عليها</td>
+              <td class="td-med">قانون المرافعات</td>
+            </tr>
+            <tr>
+              <td>الشكليات</td>
+              <td class="td-arb">مرونة أكبر في الشكل والإجراءات</td>
+              <td class="td-med">شكليات أكثر صرامة</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 27: ESSENTIAL DATA ============ -->
+  <section class="slide" data-slide="27" id="slide-27">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-clipboard-list"></i> المحور الرابع · البيانات</div>
+        <h2 class="slide-title">البيانات الجوهرية لطلب التحكيم</h2>
+      </div>
+      <div class="data-accordion">
+        <div class="acc-item">
+          <div class="acc-head" onclick="toggleAcc(this)">
+            <span><i class="fas fa-users"></i> ١ · بيانات أطراف النزاع</span>
+            <i class="fas fa-plus acc-icon"></i>
+          </div>
+          <div class="acc-body">
+            <p>الاسم، الصفة، العنوان، وسائل الاتصال، الممثل القانوني إن وجد. <strong>أهميتها:</strong> صحة الإعلان وسلامة انعقاد الخصومة.</p>
+          </div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-head" onclick="toggleAcc(this)">
+            <span><i class="fas fa-file-signature"></i> ٢ · بيان اتفاق التحكيم</span>
+            <i class="fas fa-plus acc-icon"></i>
+          </div>
+          <div class="acc-body">
+            <p>أساس اختصاص هيئة التحكيم (شرط تحكيم أو مشارطة). يرفق الاتفاق كلما أمكن.</p>
+          </div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-head" onclick="toggleAcc(this)">
+            <span><i class="fas fa-history"></i> ٣ · عرض موجز للوقائع</span>
+            <i class="fas fa-plus acc-icon"></i>
+          </div>
+          <div class="acc-body">
+            <p>الوقائع المنشئة للنزاع مرتبةً زمنيًا دون إسهاب، حتى تتمكن الهيئة من فهم النزاع.</p>
+          </div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-head" onclick="toggleAcc(this)">
+            <span><i class="fas fa-bullseye"></i> ٤ · تحديد الطلبات</span>
+            <i class="fas fa-plus acc-icon"></i>
+          </div>
+          <div class="acc-body">
+            <p>يجب أن تكون <strong>محددة، واضحة، قابلة للفصل</strong> — لأن هيئة التحكيم لا تقضي إلا في حدود الطلبات.</p>
+          </div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-head" onclick="toggleAcc(this)">
+            <span><i class="fas fa-balance-scale"></i> ٥ · الأساس القانوني للمطالبة</span>
+            <i class="fas fa-plus acc-icon"></i>
+          </div>
+          <div class="acc-body">
+            <p>النصوص القانونية والبنود العقدية. الهيئة <strong>غير مقيدة</strong> بالتكييف القانوني للخصوم، طالما التزمت بالوقائع وحق الدفاع.</p>
+          </div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-head" onclick="toggleAcc(this)">
+            <span><i class="fas fa-user-tie"></i> ٦ · تعيين المحكم</span>
+            <i class="fas fa-plus acc-icon"></i>
+          </div>
+          <div class="acc-body">
+            <p>إذا كان الاتفاق أو قواعد المركز تقتضي تعيين كل طرف لمحكمه، وجب بيان اسمه.</p>
+          </div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-head" onclick="toggleAcc(this)">
+            <span><i class="fas fa-paperclip"></i> ٧ · المستندات المؤيدة</span>
+            <i class="fas fa-plus acc-icon"></i>
+          </div>
+          <div class="acc-body">
+            <p>العقد، اتفاق التحكيم، المراسلات، الفواتير، التقارير، وأي مستندات تؤيد الطلب.</p>
+          </div>
+        </div>
+      </div>
+      <div class="distinction-note">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span><strong>التمييز المهم:</strong> البيانات الجوهرية يترتب على غيابها تعذر انعقاد الخصومة ← vs ← البيانات التنظيمية يجوز استكمالها أثناء الإجراءات.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 28: AMENDMENT ============ -->
+  <section class="slide" data-slide="28" id="slide-28">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-edit"></i> المحور الرابع · التعديل</div>
+        <h2 class="slide-title">تعديل طلب التحكيم</h2>
+      </div>
+      <div class="amendment-layout">
+        <div class="amend-permitted">
+          <div class="ap-title"><i class="fas fa-check-circle green-icon"></i> أنواع التعديل الجائزة</div>
+          <div class="ap-list">
+            <div class="ap-item"><i class="fas fa-plus-circle"></i> زيادة الطلبات</div>
+            <div class="ap-item"><i class="fas fa-minus-circle"></i> إنقاصها</div>
+            <div class="ap-item"><i class="fas fa-exchange-alt"></i> تعديل السبب القانوني</div>
+            <div class="ap-item"><i class="fas fa-pen"></i> تعديل الوقائع</div>
+            <div class="ap-item"><i class="fas fa-plus"></i> إضافة طلبات من ذات العلاقة القانونية</div>
+          </div>
+        </div>
+        <div class="amend-conditions">
+          <div class="ac-title"><i class="fas fa-exclamation-circle yellow-icon"></i> الشروط والضوابط</div>
+          <div class="ac-list">
+            <div class="ac-item"><i class="fas fa-shield-alt"></i> عدم الإضرار بحق الدفاع</div>
+            <div class="ac-item"><i class="fas fa-comment"></i> تمكين الخصم من الرد</div>
+            <div class="ac-item"><i class="fas fa-ban"></i> عدم تعطيل الإجراءات دون مبرر</div>
+          </div>
+          <div class="discretion-note">لهيئة التحكيم سلطة تقديرية في قبول التعديل أو رفضه.</div>
+        </div>
+      </div>
+      <div class="practical-q">
+        <i class="fas fa-question-circle"></i>
+        <strong>إشكالية عملية:</strong> متى يعد التعديل مجرد تعديل للطلب الأصلي، ومتى يعد نزاعًا جديدًا يخرج عن نطاق الخصومة؟
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 29: REPLY ============ -->
+  <section class="slide" data-slide="29" id="slide-29">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-reply"></i> المحور الرابع · الرد</div>
+        <h2 class="slide-title">الرد على طلب التحكيم وأثر السكوت</h2>
+      </div>
+      <div class="reply-split">
+        <div class="reply-content">
+          <div class="rc-title"><i class="fas fa-list"></i> محتويات الرد</div>
+          <div class="rc-items">
+            <div class="rc-item"><i class="fas fa-check"></i> الرد على الوقائع</div>
+            <div class="rc-item"><i class="fas fa-check"></i> الرد على الطلبات</div>
+            <div class="rc-item"><i class="fas fa-check"></i> الدفوع الشكلية</div>
+            <div class="rc-item"><i class="fas fa-check"></i> الدفوع الموضوعية</div>
+            <div class="rc-item"><i class="fas fa-check"></i> الطلبات المقابلة إن وجدت</div>
+            <div class="rc-item"><i class="fas fa-check"></i> تعيين المحكم إذا كان مطلوبًا</div>
+          </div>
+          <div class="rc-purpose"><i class="fas fa-balance-scale"></i> يحقق مبدأ المواجهة بين الخصوم ويكفل ممارسة حق الدفاع.</div>
+        </div>
+        <div class="silence-effect">
+          <div class="se-title"><i class="fas fa-microphone-slash"></i> أثر عدم الرد (السكوت)</div>
+          <div class="se-myth"><i class="fas fa-times-circle red-icon"></i> <strong>لا</strong> يعد إقرارًا بطلبات المدعي</div>
+          <div class="se-myth"><i class="fas fa-times-circle red-icon"></i> <strong>لا</strong> يترتب عليه الحكم لصالح المدعي تلقائيًا</div>
+          <div class="se-truth"><i class="fas fa-check-circle green-icon"></i> تستمر الهيئة في نظر النزاع بعد التحقق من صحة الإعلان</div>
+          <div class="se-truth"><i class="fas fa-check-circle green-icon"></i> عبء الإثبات يبقى على المدعي ولا يُعفى منه</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 30-32: Axis 4 workshops ============ -->
+  <section class="slide" data-slide="30" id="slide-30">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-hammer"></i> ورشة عمل — المحور الرابع</div>
+        <h2 class="slide-title">التطبيق الأول: هل هذا تعديل أم طلب جديد؟</h2>
+      </div>
+      <div class="workshop-scenario">
+        <div class="ws-facts">
+          <h4><i class="fas fa-info-circle"></i> الوقائع</h4>
+          <p>طالب المدعي بإلزام المدعى عليه بسداد <strong>مليون جنيه</strong>. وبعد تشكيل الهيئة طلب <strong>تعويضًا إضافيًا قدره 500 ألف جنيه</strong>.</p>
+        </div>
+        <div class="ws-discuss">
+          <h4><i class="fas fa-comments"></i> للمناقشة</h4>
+          <div class="discuss-q" onclick="toggleDiscuss(this)">
+            <span>هل يعد هذا تعديلًا للطلبات أم طلبًا جديدًا؟</span>
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="discuss-a">يتوقف على ما إذا كان التعويض الإضافي ناشئًا عن ذات الوقائع والعلاقة القانونية المحددة في الطلب الأصلي. إن كان كذلك فهو تعديل جائز، وإن كان مستقلًا فهو طلب جديد.</div>
+
+          <div class="discuss-q" onclick="toggleDiscuss(this)">
+            <span>هل يرتبط التعويض بالوقائع الأصلية؟</span>
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="discuss-a">هذا هو محور التحليل — إذا ثبت الارتباط ينطبق المعيار الأول (تعديل)، وإذا كان مستقلًا فهو طلب جديد يستلزم موافقة الهيئة.</div>
+
+          <div class="discuss-q" onclick="toggleDiscuss(this)">
+            <span>هل يترتب على قبوله الإخلال بحق الدفاع؟</span>
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="discuss-a">يجب منح المدعى عليه فرصة كافية للرد على الطلب المعدَّل، وإلا تعرض الحكم لخطر البطلان لإخلاله بحق الدفاع.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-slide="31" id="slide-31">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-hammer"></i> ورشة عمل — المحور الرابع</div>
+        <h2 class="slide-title">التطبيق الثاني: المدعى عليه الصامت</h2>
+      </div>
+      <div class="workshop-scenario">
+        <div class="ws-facts">
+          <h4><i class="fas fa-info-circle"></i> الوقائع</h4>
+          <p>أُعلن المدعى عليه إعلانًا <strong>صحيحًا</strong>، لكنه لم يقدم أي رد على طلب التحكيم ولم يحضر.</p>
+        </div>
+        <div class="ws-discuss">
+          <h4><i class="fas fa-comments"></i> للمناقشة</h4>
+          <div class="discuss-q" onclick="toggleDiscuss(this)">
+            <span>هل تستمر الهيئة في الإجراءات؟</span>
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="discuss-a">نعم — بعد التحقق من صحة الإعلان تستمر الهيئة في نظر النزاع. غياب المدعى عليه لا يوقف الإجراءات.</div>
+
+          <div class="discuss-q" onclick="toggleDiscuss(this)">
+            <span>هل يعتبر السكوت إقرارًا؟</span>
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="discuss-a">لا — السكوت لا يعد إقرارًا. يظل عبء الإثبات على المدعي الذي عليه إثبات طلباته بالأدلة.</div>
+
+          <div class="discuss-q" onclick="toggleDiscuss(this)">
+            <span>ما حدود سلطة الهيئة في غياب أحد الخصوم؟</span>
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="discuss-a">تفحص الهيئة الأدلة المقدمة من المدعي وتتحقق من ثبوت الحق، مع التزامها باحترام حق الدفاع. لا يجوز الحكم مباشرة دون فحص موضوعي حتى في غياب المدعى عليه.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 32: Axis 4 quiz -->
+  <section class="slide" data-slide="32" id="slide-32">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-check-square"></i> اختبار — المحور الرابع</div>
+        <h2 class="slide-title">اختبر فهمك</h2>
+      </div>
+      <div class="quiz-container" id="quiz-32">
+        <div class="quiz-question active-q" data-q="0">
+          <div class="q-text">صح أم خطأ: امتناع المدعى عليه عن الرد يعد إقرارًا ضمنيًا بطلبات المدعي.</div>
+          <div class="q-options">
+            <div class="q-opt" data-correct="false" onclick="selectQuizOpt(this,32,0)">صح</div>
+            <div class="q-opt" data-correct="true" onclick="selectQuizOpt(this,32,0)">خطأ</div>
+          </div>
+          <div class="q-feedback hidden"></div>
+        </div>
+        <div class="quiz-question" data-q="1">
+          <div class="q-text">ما الوظيفة الأساسية لطلب التحكيم؟</div>
+          <div class="q-options">
+            <div class="q-opt" data-correct="false" onclick="selectQuizOpt(this,32,1)">إخطار الطرف الآخر بوجود خلاف فحسب</div>
+            <div class="q-opt" data-correct="true" onclick="selectQuizOpt(this,32,1)">افتتاح الخصومة وتحديد أطرافها وموضوعها ونطاق ولاية الهيئة</div>
+            <div class="q-opt" data-correct="false" onclick="selectQuizOpt(this,32,1)">إثبات الحق الموضوعي للمدعي</div>
+            <div class="q-opt" data-correct="false" onclick="selectQuizOpt(this,32,1)">تشكيل هيئة التحكيم</div>
+          </div>
+          <div class="q-feedback hidden"></div>
+        </div>
+        <div class="quiz-nav">
+          <button class="quiz-prev" onclick="prevQuestion(32)" disabled><i class="fas fa-arrow-right"></i> السابق</button>
+          <div class="quiz-dots" id="dots-32">
+            <span class="dot active" onclick="jumpQuestion(32,0)"></span>
+            <span class="dot" onclick="jumpQuestion(32,1)"></span>
+          </div>
+          <button class="quiz-next" onclick="nextQuestion(32)">التالي <i class="fas fa-arrow-left"></i></button>
+        </div>
+        <div class="quiz-score hidden" id="score-32"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLACEHOLDER SLIDES 33-55 for axes 5, 6, 7 -->
+  <section class="slide" data-slide="33" id="slide-33">
+    <div class="slide-content axis-intro-content">
+      <div class="axis-number-bg">٥</div>
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-layer-group"></i> المحور الخامس</div>
+        <h2 class="slide-title">أطراف الخصومة التحكيمية<br>وصفاتهم وتمثيلهم القانوني</h2>
+        <p class="slide-desc">سيتم تطوير هذا المحور في الجزء الثاني من المشروع</p>
+      </div>
+      <div class="coming-soon-box">
+        <i class="fas fa-hourglass-half"></i>
+        <p>هذا المحور سيشمل: الصفة والمصلحة والأهلية — تمثيل الأشخاص — نطاق الالتزام — تعدد الأطراف</p>
+        <button class="continue-btn" onclick="goToSlide(41)">انتقل للمحور السادس <i class="fas fa-arrow-left"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-slide="41" id="slide-41">
+    <div class="slide-content axis-intro-content">
+      <div class="axis-number-bg">٦</div>
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-layer-group"></i> المحور السادس</div>
+        <h2 class="slide-title">الدفوع الأولية بين<br>الاختصاص والقبول</h2>
+        <p class="slide-desc">سيتم تطوير هذا المحور في الجزء الثاني من المشروع</p>
+      </div>
+      <div class="coming-soon-box">
+        <i class="fas fa-hourglass-half"></i>
+        <p>هذا المحور سيشمل: الدفع بعدم الاختصاص — الدفع بعدم القبول — معيار التفرقة — التطبيقات القضائية</p>
+        <button class="continue-btn" onclick="goToSlide(49)">انتقل للمحور السابع <i class="fas fa-arrow-left"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-slide="49" id="slide-49">
+    <div class="slide-content axis-intro-content">
+      <div class="axis-number-bg">٧</div>
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-layer-group"></i> المحور السابع</div>
+        <h2 class="slide-title">الجلسة الإجرائية الأولى<br>وضمانات تنظيم الخصومة</h2>
+        <p class="slide-desc">سيتم تطوير هذا المحور في الجزء الثاني من المشروع</p>
+      </div>
+      <div class="coming-soon-box">
+        <i class="fas fa-hourglass-half"></i>
+        <p>هذا المحور سيشمل: أهداف الجلسة — الموضوعات المناقشة — الضمانات — الأوامر الإجرائية — الإشكالات</p>
+        <button class="continue-btn" onclick="goToSlide(56)">انتقل للمحاكاة <i class="fas fa-arrow-left"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 56: SIMULATION ============ -->
+  <section class="slide" data-slide="56" id="slide-56">
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-theater-masks"></i> محاكاة التحكيم</div>
+        <h2 class="slide-title">محاكاة كاملة لإجراءات التحكيم</h2>
+        <p class="slide-desc">اختر دورك وانتقل خطوة بخطوة حتى صدور الحكم</p>
+      </div>
+      <div class="simulation-roles">
+        <div class="sim-role" onclick="startSimulation('claimant')">
+          <div class="sr-icon"><i class="fas fa-user-tie"></i></div>
+          <div class="sr-title">المدعي</div>
+          <div class="sr-desc">قدِّم طلب التحكيم</div>
+        </div>
+        <div class="sim-role" onclick="startSimulation('respondent')">
+          <div class="sr-icon"><i class="fas fa-user-shield"></i></div>
+          <div class="sr-title">المدعى عليه</div>
+          <div class="sr-desc">أعدَّ دفاعك وردَّ على الطلب</div>
+        </div>
+        <div class="sim-role" onclick="startSimulation('arbitrator')">
+          <div class="sr-icon"><i class="fas fa-gavel"></i></div>
+          <div class="sr-title">المحكَّم</div>
+          <div class="sr-desc">أدِر الجلسة وأصدر الحكم</div>
+        </div>
+        <div class="sim-role" onclick="startSimulation('secretary')">
+          <div class="sr-icon"><i class="fas fa-clipboard-user"></i></div>
+          <div class="sr-title">أمين السر</div>
+          <div class="sr-desc">وثِّق الإجراءات وأعدَّ المحاضر</div>
+        </div>
+      </div>
+      <div id="simulation-area" class="hidden">
+        <div class="sim-scenario">
+          <div class="ss-title"><i class="fas fa-file-contract"></i> سيناريو المحاكاة</div>
+          <p>شركة البناء (أ) أبرمت عقدًا مع شركة التطوير (ب) لإنشاء مجمع تجاري. نشأ نزاع حول مستحقات مالية بقيمة 5 مليون جنيه. العقد يتضمن شرط تحكيم لدى مركز القاهرة الإقليمي.</p>
+        </div>
+        <div class="sim-timeline" id="sim-steps">
+          <!-- Steps populated by JS -->
+        </div>
+        <button class="start-btn" onclick="goToSlide(0)" style="margin-top:1.5rem">
+          <i class="fas fa-home"></i>
+          <span>العودة للرئيسية</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 57: CASE FILE ============ -->
+  <section class="slide" data-slide="57" id="slide-57">
+    <div class="slide-content lab-slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-folder-open"></i> ملف القضية العملية</div>
+        <h2 class="slide-title">القضية رقم ASL-ARB-2026-001</h2>
+        <p class="slide-desc">ملف مهني واحد متكامل لتطبيق محاضرة بدء إجراءات التحكيم على نزاع مقاولات واقعي.</p>
+      </div>
+      <div id="case-overview" class="lab-section-grid"></div>
+      <div id="case-timeline" class="lab-timeline"></div>
+      <div class="lab-actions-row">
+        <button class="continue-btn" onclick="goToSlide(58)"><i class="fas fa-file-contract"></i> العقد وشرط التحكيم</button>
+        <button class="continue-btn" onclick="goToSlide(60)"><i class="fas fa-pen-nib"></i> انتقل للتمارين</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 58: CONTRACT ============ -->
+  <section class="slide" data-slide="58" id="slide-58">
+    <div class="slide-content lab-slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-file-contract"></i> العقد وشرط التحكيم</div>
+        <h2 class="slide-title">مقتطفات عقد التصميم والتنفيذ</h2>
+        <p class="slide-desc">راجع البنود التي تحدد الاختصاص، الإخطار، الإجراءات السابقة، القانون الواجب التطبيق، ومكان التحكيم.</p>
+      </div>
+      <div id="contract-view"></div>
+      <div class="lab-actions-row">
+        <button class="continue-btn" onclick="goToSlide(59)"><i class="fas fa-paperclip"></i> المراسلات والمستندات</button>
+        <button class="continue-btn" onclick="goToSlide(60)"><i class="fas fa-pen-nib"></i> ابدأ الصياغة</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 59: DOCUMENTS ============ -->
+  <section class="slide" data-slide="59" id="slide-59">
+    <div class="slide-content lab-slide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-paperclip"></i> المراسلات والإخطارات والمستندات</div>
+        <h2 class="slide-title">مستندات بدء الخصومة</h2>
+        <p class="slide-desc">هذه المواد هي أساس طلب التحكيم، الرد عليه، والأمر الإجرائي الأول.</p>
+      </div>
+      <div id="documents-view"></div>
+      <div class="lab-actions-row">
+        <button class="continue-btn" onclick="goToSlide(57)"><i class="fas fa-folder-open"></i> ملف القضية</button>
+        <button class="continue-btn" onclick="goToSlide(60)"><i class="fas fa-pen-nib"></i> تمارين الصياغة</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 60: WRITING TASKS ============ -->
+  <section class="slide" data-slide="60" id="slide-60">
+    <div class="slide-content lab-slide-content lab-wide-content">
+      <div class="slide-header">
+        <div class="slide-eyebrow"><i class="fas fa-pen-nib"></i> تمارين الصياغة القانونية</div>
+        <h2 class="slide-title">مختبر الصياغة العملية</h2>
+        <p class="slide-desc">اختر مهمة، أدخل بيانات الطالب عند الطلب، ثم حرر المستند بصياغة عربية قانونية قابلة للطباعة.</p>
+      </div>
+      <div id="writing-lab"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Navigation Arrows -->
+<div id="nav-arrows">
+  <button id="btn-prev" onclick="prevSlide()" title="الشريحة السابقة"><i class="fas fa-chevron-up"></i></button>
+  <div id="slide-counter"><span id="current-num">1</span> / <span id="total-num">-</span></div>
+  <button id="btn-next" onclick="nextSlide()" title="الشريحة التالية"><i class="fas fa-chevron-down"></i></button>
+</div>
+
+<!-- Back to top -->
+<button id="back-to-top" onclick="goToSlide(0)" title="العودة للأعلى">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- Keyboard shortcuts hint -->
+<div id="shortcuts-hint">
+  <kbd>↑↓</kbd> للتنقل · <kbd>F</kbd> ملء الشاشة · <kbd>S</kbd> بحث · <kbd>D</kbd> وضع ليلي
+</div>
+
+<!-- Student Information Modal -->
+<div id="student-info-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+  <div class="modal-box lab-profile-box">
+    <div class="modal-header">
+      <h3><i class="fas fa-id-card"></i> بيانات الطالب قبل بدء المهمة</h3>
+      <button class="modal-close" type="button" data-close-student-modal><i class="fas fa-times"></i></button>
+    </div>
+    <form id="student-info-form" class="lab-form lab-form-grid">
+      <label><span>Student Name</span><input name="studentName" type="text" required></label>
+      <label><span>Student ID (optional)</span><input name="studentId" type="text"></label>
+      <label><span>Email</span><input name="email" type="email" required></label>
+      <label><span>Course Name</span><input name="courseName" type="text" required></label>
+      <label><span>Instructor Name</span><input name="instructorName" type="text" required></label>
+      <label><span>Case Number</span><input name="caseNumber" type="text" required></label>
+      <label><span>Case Title</span><input name="caseTitle" type="text" required></label>
+      <label><span>Arbitration Institution</span><input name="institution" type="text" required></label>
+      <label><span>Applicable Law</span><input name="applicableLaw" type="text" required></label>
+      <label><span>Seat of Arbitration</span><input name="seat" type="text" required></label>
+      <label><span>Language of Arbitration</span><input name="language" type="text" required></label>
+      <label><span>Date</span><input name="date" type="date" required></label>
+      <button class="start-btn lab-form-submit" type="submit"><i class="fas fa-check"></i><span>حفظ وبدء المهمة</span></button>
+      <div id="student-info-status" class="lab-status lab-form-status"></div>
+    </form>
+  </div>
+</div>
+
+<div id="pdf-render-root" class="hidden"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+<script src="script.js"></script>
+<script type="module" src="platform.js"></script>
+</body>
+</html>
